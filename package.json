@@ -1,0 +1,22 @@
+{
+  "name": "adilla",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "microtime": "^3.1.1",
+    "mongoose": "^6.7.1",
+    "nodemon": "^2.0.20",
+    "random-js": "^2.1.0"
+  }
+}
