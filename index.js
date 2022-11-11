@@ -25,7 +25,7 @@ const connectDB = () => {
     });
 };
 
-app.use("/Ardilla/api", authRoute);
+app.use("/ardilla/api", authRoute);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
