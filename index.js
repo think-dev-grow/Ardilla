@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const randomize = require("randomatic");
 
 const mongoose = require("mongoose");
 
@@ -41,5 +42,6 @@ const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
   connectDB();
+
   console.log("Server connected.");
 });

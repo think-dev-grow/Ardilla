@@ -38,6 +38,8 @@ const register = async (req, res, next) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
+    let value = randomize("0", 7);
+
     if (check) {
       const { firstname, lastname, email, dhid, contact, uid, password } =
         check;
@@ -46,13 +48,14 @@ const register = async (req, res, next) => {
         firstname,
         lastname,
         email,
+        emailToken: value,
         contact,
         dhid,
         uid,
         password,
       });
 
-      await user.save();
+      const data = await user.save();
 
       // <a href="https://leapsail-app.herokuapp.com/leapsail/api/auth/verify-email?token=${data.emailToken}">Verify your Email</a>
 
@@ -60,9 +63,9 @@ const register = async (req, res, next) => {
         from: ' "Verify your email" <Rex.atuzie@leapsail.com.ng>',
         to: email,
         subject: "Arilla Email verification",
-        html: `<h2>${firstname}, Thanks for registering</h2>
-          <h4>Please click the link to verify your account</h4>
-         
+        html: `<p> Please use the OTP code below to complete your accout setting</p>
+        <h1>${data.emailToken}</h1>
+       
          `,
       };
 
@@ -77,13 +80,16 @@ const register = async (req, res, next) => {
       res.status(200).json({
         success: "true",
         msg: " user created successfully",
-        data: user,
+        data,
       });
     } else {
+      let value = randomize("0", 7);
+
       const user = new Users({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
+        emailToken: value,
         contact: req.body.contact,
         dhid: crypto.randomBytes(64).toString("hex"),
         uid: `30${rn(options)}${random.integer(10, 99)}${randomize("0", 3)}`,
@@ -96,8 +102,8 @@ const register = async (req, res, next) => {
         from: ' "Verify your email" <Rex.atuzie@leapsail.com.ng>',
         to: data.email,
         subject: "Ardilla Email verification",
-        html: `<h2>${data.firstname}, Thanks for registering</h2>
-          <h4>Please click the link to verify your account</h4>
+        html: `<p> Please use the OTP code below to complete your accout setting</p>
+          <h1>${data.emailToken}</h1>
          
          `,
       };

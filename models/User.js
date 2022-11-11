@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema(
     lastname: { type: String },
     uid: { type: String },
     email: { type: String },
+    emailToken: { type: String },
     contact: { type: String },
     dhid: { type: String },
     platform: { type: String, default: "Ardilla" },
