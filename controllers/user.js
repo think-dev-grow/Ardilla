@@ -20,11 +20,11 @@ const register = async (req, res, next) => {
   try {
     const check = await Users.findOne({ email: req.body.email });
 
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
-
     if (check.platform === "Ardilla")
       return next(handleError(404, "User already exist."));
+
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
 
     if (check) {
       const { firstname, lastname, email, dhid, contact, uid, password } =
