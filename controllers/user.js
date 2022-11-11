@@ -16,6 +16,18 @@ const options = {
   integer: true,
 };
 
+const nodeMailer = require("nodemailer");
+
+let transporter = nodeMailer.createTransport({
+  host: "smtp.zoho.com",
+  secure: true,
+  port: 465,
+  auth: {
+    user: "Rex.atuzie@leapsail.com.ng",
+    pass: "rexatuzie",
+  },
+});
+
 const register = async (req, res, next) => {
   try {
     const check = await Users.findOne({ email: req.body.email });
@@ -42,6 +54,26 @@ const register = async (req, res, next) => {
 
       await user.save();
 
+      // <a href="https://leapsail-app.herokuapp.com/leapsail/api/auth/verify-email?token=${data.emailToken}">Verify your Email</a>
+
+      const mail = {
+        from: ' "Verify your email" <Rex.atuzie@leapsail.com.ng>',
+        to: email,
+        subject: "Arilla Email verification",
+        html: `<h2>${firstname}, Thanks for registering</h2>
+          <h4>Please click the link to verify your account</h4>
+         
+         `,
+      };
+
+      transporter.sendMail(mail, (err, info) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(info);
+        }
+      });
+
       res.status(200).json({
         success: "true",
         msg: " user created successfully",
@@ -58,12 +90,30 @@ const register = async (req, res, next) => {
         password: hash,
       });
 
-      await user.save();
+      const data = await user.save();
+
+      const mail = {
+        from: ' "Verify your email" <Rex.atuzie@leapsail.com.ng>',
+        to: data.email,
+        subject: "Ardilla Email verification",
+        html: `<h2>${data.firstname}, Thanks for registering</h2>
+          <h4>Please click the link to verify your account</h4>
+         
+         `,
+      };
+
+      transporter.sendMail(mail, (err, info) => {
+        if (err) {
+          next(handleError(400, "Oops , something went wrong."));
+        } else {
+          console.log(info);
+        }
+      });
 
       res.status(200).json({
         success: "true",
         msg: "user created successfully",
-        data: user,
+        data,
       });
     }
   } catch (error) {
@@ -72,4 +122,41 @@ const register = async (req, res, next) => {
   }
 };
 
-module.exports = { register };
+const login = async (req, res, next) => {
+  try {
+    const uid = req.body.uid;
+
+    const user = await Users.findOne({ uid });
+
+    if (user.platform !== "Hargon") {
+      const { firstname, lastname, email, dhid, contact, uid, password } = user;
+
+      const createUser = new Users({
+        firstname,
+        lastname,
+        email,
+        contact,
+        dhid,
+        uid,
+        password,
+      });
+
+      await createUser.save();
+
+      const confirmPassword = await bcrypt.compare(req.body.password, password);
+      if (!confirmPassword)
+        return next(handleError(400, "Password incorrect."));
+
+      res.status(200).json({
+        success: "true",
+        msg: "Login successfull",
+      });
+    } else {
+    }
+  } catch (error) {
+    console.log(error);
+    next(handleError(500, "Oops , something went wrong."));
+  }
+};
+
+module.exports = { register, login };
