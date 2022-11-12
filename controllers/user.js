@@ -35,8 +35,8 @@ const register = async (req, res, next) => {
     if (check?.platform === "Ardilla")
       return next(handleError(404, "User already exist."));
 
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
+    // const salt = bcrypt.genSaltSync(10);
+    // const hash = bcrypt.hashSync(req.body.password, salt);
 
     let value = randomize("0", 7);
 
