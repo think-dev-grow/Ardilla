@@ -38,11 +38,11 @@ const register = async (req, res, next) => {
     // const salt = bcrypt.genSaltSync(10);
     // const hash = bcrypt.hashSync(req.body.password, salt);
 
-    let value = randomize("0", 7);
-
     if (check) {
       const { firstname, lastname, email, dhid, contact, uid, password } =
         check;
+
+      let value = randomize("0", 7);
 
       const user = new Users({
         firstname,
