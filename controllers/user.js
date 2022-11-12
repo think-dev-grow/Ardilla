@@ -84,17 +84,18 @@ const register = async (req, res, next) => {
       });
     } else {
       let value = randomize("0", 7);
+      const user = new Users({ ...req.body, emailToken: value });
 
-      const user = new Users({
-        // firstname: req.body.firstname,
-        // lastname: req.body.lastname,
-        email: req.body.email,
-        emailToken: value,
-        // contact: req.body.contact,
-        dhid: crypto.randomBytes(64).toString("hex"),
-        uid: `30${rn(options)}${random.integer(10, 99)}${randomize("0", 3)}`,
-        // password: hash,
-      });
+      // const user = new Users({
+      //   firstname: req.body.firstname,
+      //   lastname: req.body.lastname,
+      //   email: req.body.email,
+      //   emailToken: value,
+      //   contact: req.body.contact,
+      //   dhid: crypto.randomBytes(64).toString("hex"),
+      //   uid: `30${rn(options)}${random.integer(10, 99)}${randomize("0", 3)}`,
+      //   password: hash,
+      // });
 
       const data = await user.save();
 
