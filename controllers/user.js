@@ -110,7 +110,7 @@ const register = async (req, res, next) => {
       transporter.sendMail(mail, (err, info) => {
         if (err) {
           console.log(err);
-          next(handleError(400, "Oops , something went wrong."));
+          // next(handleError(400, "Oops , something went wrong."));
         } else {
           console.log(info);
         }
