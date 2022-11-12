@@ -84,8 +84,6 @@ const register = async (req, res, next) => {
       let value = randomize("0", 7);
       const user = new Users({ ...req.body, emailToken: value });
 
-      res.send(user);
-
       // const user = new Users({
       //   firstname: req.body.firstname,
       //   lastname: req.body.lastname,
@@ -97,7 +95,9 @@ const register = async (req, res, next) => {
       //   password: hash,
       // });
 
-      // const data = await user.save();
+      const data = await user.save();
+
+      res.send(data);
 
       // const mail = {
       //   from: ' "Verify your email" <Rex.atuzie@leapsail.com.ng>',
