@@ -82,7 +82,7 @@ const register = async (req, res, next) => {
       });
     } else {
       let value = randomize("0", 7);
-      const user = new Users({ ...req.body });
+      const user = new Users({ ...req.body, emailToken: value });
 
       res.send(user);
 
