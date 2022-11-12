@@ -1,22 +1,19 @@
 const Users = require("../models/User");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
+const { Random } = require("random-js");
+const randomize = require("randomatic");
+const rn = require("random-number");
+const nodeMailer = require("nodemailer");
 const handleError = require("../utils/error");
 
-const { Random } = require("random-js");
 const random = new Random();
-
-const randomize = require("randomatic");
-
-const rn = require("random-number");
 
 const options = {
   min: 100,
   max: 999,
   integer: true,
 };
-
-const nodeMailer = require("nodemailer");
 
 let transporter = nodeMailer.createTransport({
   host: "smtp.zoho.com",
