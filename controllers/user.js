@@ -58,7 +58,7 @@ const register = async (req, res, next) => {
       const data = await user.save();
 
       const mail = {
-        from: ' "Verify your email" <Rex.atuzie@leapsail.com.ng>',
+        from: ' "Verify your email" <developer@leapsail.com.ng>',
         to: email,
         subject: "Arilla Email verification",
         html: `<p> Please use the OTP code below to complete your accout setting</p>
@@ -97,10 +97,8 @@ const register = async (req, res, next) => {
 
       const data = await user.save();
 
-      res.send(data);
-
       const mail = {
-        from: ' "Verify your email" <Rex.atuzie@leapsail.com.ng>',
+        from: ' "Verify your email" <developer@leapsail.com.ng>',
         to: data.email,
         subject: "Ardilla Email verification",
         html: `<p> Please use the OTP code below to complete your accout setting</p>
