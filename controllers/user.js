@@ -84,44 +84,46 @@ const register = async (req, res, next) => {
       });
     } else {
       let value = randomize("0", 7);
-      // const user = new Users({ ...req.body, emailToken: value });
+      const user = new Users({ ...req.body, emailToken: value });
 
-      const user = new Users({
-        // firstname: req.body.firstname,
-        // lastname: req.body.lastname,
-        email: req.body.email,
-        emailToken: value,
-        // contact: req.body.contact,
-        dhid: crypto.randomBytes(64).toString("hex"),
-        uid: `30${rn(options)}${random.integer(10, 99)}${randomize("0", 3)}`,
-        // password: hash,
-      });
+      res.send(user);
 
-      const data = await user.save();
+      // const user = new Users({
+      //   firstname: req.body.firstname,
+      //   lastname: req.body.lastname,
+      //   email: req.body.email,
+      //   emailToken: value,
+      //   contact: req.body.contact,
+      //   dhid: crypto.randomBytes(64).toString("hex"),
+      //   uid: `30${rn(options)}${random.integer(10, 99)}${randomize("0", 3)}`,
+      //   password: hash,
+      // });
 
-      const mail = {
-        from: ' "Verify your email" <Rex.atuzie@leapsail.com.ng>',
-        to: data.email,
-        subject: "Ardilla Email verification",
-        html: `<p> Please use the OTP code below to complete your accout setting</p>
-          <h1>${data.emailToken}</h1>
-         
-         `,
-      };
+      // const data = await user.save();
 
-      transporter.sendMail(mail, (err, info) => {
-        if (err) {
-          next(handleError(400, "Oops , something went wrong."));
-        } else {
-          console.log(info);
-        }
-      });
+      // const mail = {
+      //   from: ' "Verify your email" <Rex.atuzie@leapsail.com.ng>',
+      //   to: data.email,
+      //   subject: "Ardilla Email verification",
+      //   html: `<p> Please use the OTP code below to complete your accout setting</p>
+      //     <h1>${data.emailToken}</h1>
 
-      res.status(200).json({
-        success: "true",
-        msg: "user created successfully",
-        data,
-      });
+      //    `,
+      // };
+
+      // transporter.sendMail(mail, (err, info) => {
+      //   if (err) {
+      //     next(handleError(400, "Oops , something went wrong."));
+      //   } else {
+      //     console.log(info);
+      //   }
+      // });
+
+      // res.status(200).json({
+      //   success: "true",
+      //   msg: "user created successfully",
+      //   data,
+      // });
     }
   } catch (error) {
     console.log(error);
