@@ -99,29 +99,29 @@ const register = async (req, res, next) => {
 
       res.send(data);
 
-      // const mail = {
-      //   from: ' "Verify your email" <Rex.atuzie@leapsail.com.ng>',
-      //   to: data.email,
-      //   subject: "Ardilla Email verification",
-      //   html: `<p> Please use the OTP code below to complete your accout setting</p>
-      //     <h1>${data.emailToken}</h1>
+      const mail = {
+        from: ' "Verify your email" <Rex.atuzie@leapsail.com.ng>',
+        to: data.email,
+        subject: "Ardilla Email verification",
+        html: `<p> Please use the OTP code below to complete your accout setting</p>
+          <h1>${data.emailToken}</h1>
 
-      //    `,
-      // };
+         `,
+      };
 
-      // transporter.sendMail(mail, (err, info) => {
-      //   if (err) {
-      //     next(handleError(400, "Oops , something went wrong."));
-      //   } else {
-      //     console.log(info);
-      //   }
-      // });
+      transporter.sendMail(mail, (err, info) => {
+        if (err) {
+          next(handleError(400, "Oops , something went wrong."));
+        } else {
+          console.log(info);
+        }
+      });
 
-      // res.status(200).json({
-      //   success: "true",
-      //   msg: "user created successfully",
-      //   data,
-      // });
+      res.status(200).json({
+        success: "true",
+        msg: "user created successfully",
+        data,
+      });
     }
   } catch (error) {
     console.log(error);
