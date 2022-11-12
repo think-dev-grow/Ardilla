@@ -23,8 +23,8 @@ let transporter = nodeMailer.createTransport({
   secure: true,
   port: 465,
   auth: {
-    user: "Rex.atuzie@leapsail.com.ng",
-    pass: "rexatuzie",
+    user: "developer@leapsail.com.ng",
+    pass: "developer@123",
   },
 });
 
@@ -111,6 +111,7 @@ const register = async (req, res, next) => {
 
       transporter.sendMail(mail, (err, info) => {
         if (err) {
+          console.log(err);
           next(handleError(400, "Oops , something went wrong."));
         } else {
           console.log(info);
