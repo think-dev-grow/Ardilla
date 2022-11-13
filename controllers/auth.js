@@ -73,7 +73,7 @@ const completeProfile = async (req, res, next) => {
       return next(handleError(404, "User does not exist."));
     } else {
       check.firstname = req.body.firstname;
-      check.lastname = req.body.firstname;
+      check.lastname = req.body.lastname;
       check.uid = `30${rn(options)}${random.integer(10, 99)}${randomize(
         "0",
         3
