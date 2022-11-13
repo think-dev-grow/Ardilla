@@ -1,8 +1,12 @@
 const Users = require("../models/User");
 const handleError = require("../utils/error");
+const { Random } = require("random-js");
 const randomize = require("randomatic");
+const rn = require("random-number");
 const Emailer = require("zoho-node-mailer");
 const crypto = require("crypto");
+
+const random = new Random();
 
 const credentials = {
   username: "developer@leapsail.com.ng",
@@ -73,14 +77,14 @@ const completeProfile = async (req, res, next) => {
       return next(handleError(404, "User does not exist."));
     } else {
       check.firstname = req.body.firstname;
-      //   check.lastname = req.body.lastname;
-      //   check.uid = `30${rn(options)}${random.integer(10, 99)}${randomize(
-      //     "0",
-      //     3
-      //   )}`;
-      //   check.dhid = crypto.randomBytes(64).toString("hex");
-      //   check.contact = req.body.contact;
-      //   check.password = req.body.password;
+      check.lastname = req.body.lastname;
+      check.uid = `30${rn(options)}${random.integer(10, 99)}${randomize(
+        "0",
+        3
+      )}`;
+      check.dhid = crypto.randomBytes(64).toString("hex");
+      check.contact = req.body.contact;
+      check.password = req.body.password;
 
       const verifiedUser = await check.save();
 
