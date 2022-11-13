@@ -53,10 +53,9 @@ const getUser = async (req, res, next) => {
     const id = req.params.id;
 
     const user = await Users.findById(id);
+    if (!user) return next(400, "User does not exist");
 
-    res.send(user);
-
-    res.send(id);
+    res.status(200).json({ success: true, user });
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));
