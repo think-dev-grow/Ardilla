@@ -8,6 +8,12 @@ const crypto = require("crypto");
 
 const random = new Random();
 
+const options = {
+  min: 100,
+  max: 999,
+  integer: true,
+};
+
 const credentials = {
   username: "developer@leapsail.com.ng",
   password: "Developer@123",
