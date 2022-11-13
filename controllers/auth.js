@@ -69,11 +69,23 @@ const completeProfile = async (req, res, next) => {
       platform: "Ardilla",
     });
 
-    res.send(check);
+    if (!check) {
+      return next(handleError(404, "User does not exist."));
+    } else {
+      check.firstname = req.body.firstname;
+      check.lastname = req.body.firstname;
+      check.uid = `30${rn(options)}${random.integer(10, 99)}${randomize(
+        "0",
+        3
+      )}`;
+      check.dhid = crypto.randomBytes(64).toString("hex");
+      check.contact = req.body.contact;
+      check.password = req.body.password;
 
-    // if (check.platform === "Ardilla") {
-    //   res.send(check);
-    // }
+      const verifiedUser = await check.save();
+
+      res.status(200).json(verifiedUser);
+    }
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));
