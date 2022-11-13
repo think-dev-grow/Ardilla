@@ -48,7 +48,7 @@ const register = async (req, res, next) => {
   }
 };
 
-const getUser = async () => {
+const getUser = async (req, res, next) => {
   try {
     const id = req.params.id;
 
