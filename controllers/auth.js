@@ -52,6 +52,10 @@ const getUser = async (req, res, next) => {
   try {
     const id = req.params.id;
 
+    const user = await Users.findById(id);
+
+    res.send(user);
+
     res.send(id);
   } catch (error) {
     console.log(error);
