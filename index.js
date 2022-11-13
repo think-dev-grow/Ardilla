@@ -1,21 +1,16 @@
 const express = require("express");
 const app = express();
 
-const cors = require("cors");
-
-app.use(cors());
-
-const randomize = require("randomatic");
-
 const mongoose = require("mongoose");
 
 const dotenv = require("dotenv");
 dotenv.config();
 
-const authRoute = require("./routes/auth");
-const userRoute = require("./routes/user");
+const cors = require("cors");
+app.use(cors());
 
-app.use(express.json());
+const authRoute = require("./routes/auth");
+// const userRoute = require("./routes/user");
 
 const connectDB = () => {
   mongoose
@@ -27,6 +22,8 @@ const connectDB = () => {
       console.log(err);
     });
 };
+
+app.use(express.json());
 
 app.use("/ardilla/api/auth", authRoute);
 app.use("/ardilla/api/user", userRoute);
