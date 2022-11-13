@@ -64,7 +64,7 @@ const register = async (req, res, next) => {
          `,
       };
 
-      transporter.sendMail(mail, (err, info) => {
+      await transporter.sendMail(mail, (err, info) => {
         if (err) {
           console.log(err);
         } else {

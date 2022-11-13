@@ -10,7 +10,8 @@ dotenv.config();
 const cors = require("cors");
 app.use(cors());
 
-const authRoute = require("./routes/user");
+const authRoute = require("./routes/auth");
+const userRoute = require("./routes/user");
 
 app.use(express.json());
 
@@ -25,7 +26,8 @@ const connectDB = () => {
     });
 };
 
-app.use("/ardilla/api", authRoute);
+app.use("/ardilla/api/auth", authRoute);
+app.use("/ardilla/api/user", userRoute);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
