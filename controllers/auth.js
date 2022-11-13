@@ -66,9 +66,11 @@ const completeProfile = async () => {
   try {
     const check = await Users.find({ email: req.body.email });
 
-    if (check.platform === "Ardilla") {
-      res.send(check);
-    }
+    res.send(check);
+
+    // if (check.platform === "Ardilla") {
+    //   res.send(check);
+    // }
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));
