@@ -64,7 +64,7 @@ const getUser = async (req, res, next) => {
 
 const completeProfile = async (req, res, next) => {
   try {
-    const check = await Users.find({
+    const check = await Users.findOne({
       email: req.body.email,
       platform: "Ardilla",
     });
