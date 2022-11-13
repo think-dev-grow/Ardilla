@@ -64,7 +64,7 @@ const getUser = async (req, res, next) => {
 
 const completeProfile = async () => {
   try {
-    const check = await Users.find({ email: req.body.email });
+    const check = await Users.findOne({ email: req.body.email });
 
     res.send(check);
 
