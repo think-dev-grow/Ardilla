@@ -36,6 +36,7 @@ const register = async (req, res, next) => {
     res.status(200).json({
       success: true,
       msg: "check your mail for your verification code",
+      data,
     });
   } catch (error) {
     console.log(error);
