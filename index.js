@@ -26,7 +26,7 @@ const connectDB = () => {
 app.use(express.json());
 
 app.use("/ardilla/api/auth", authRoute);
-app.use("/ardilla/api/user", userRoute);
+// app.use("/ardilla/api/user", userRoute);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
