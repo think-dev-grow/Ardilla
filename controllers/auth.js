@@ -50,9 +50,9 @@ const register = async (req, res, next) => {
 
 const getUser = async () => {
   try {
-    const user = await Users.findById(req.params.id);
-    if (!user) return next(handleError(404, "user not found"));
-    res.status(200).json(user);
+    const id = req.params.id;
+
+    res.send(id);
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));
