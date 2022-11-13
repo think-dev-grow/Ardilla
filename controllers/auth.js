@@ -48,4 +48,15 @@ const register = async (req, res, next) => {
   }
 };
 
-module.exports = { register };
+const getUser = async () => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return next(handleError(404, "user not found"));
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    next(handleError(500, "Oops , something went wrong."));
+  }
+};
+
+module.exports = { register, getUser };
