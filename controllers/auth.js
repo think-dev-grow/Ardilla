@@ -62,9 +62,12 @@ const getUser = async (req, res, next) => {
   }
 };
 
-const completeProfile = async () => {
+const completeProfile = async (req, res, next) => {
   try {
-    const check = await Users.findOne({ email: req.body.email });
+    const check = await Users.find({
+      email: req.body.email,
+      platform: "Ardilla",
+    });
 
     res.send(check);
 
