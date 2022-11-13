@@ -50,7 +50,7 @@ const register = async (req, res, next) => {
 
 const getUser = async () => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await Users.findById(req.params.id);
     if (!user) return next(handleError(404, "user not found"));
     res.status(200).json(user);
   } catch (error) {
