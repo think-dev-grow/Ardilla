@@ -55,7 +55,7 @@ const getUser = async (req, res, next) => {
     const user = await Users.findById(id);
     if (!user) return next(400, "User does not exist");
 
-    res.status(200).json({ success: true, user });
+    res.status(200).json({ success: true, data: user });
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));
