@@ -87,9 +87,9 @@ const register = async (req, res, next) => {
       //   email: req.body.email,
       //   emailToken: value,
       //   contact: req.body.contact,
-      //   dhid: crypto.randomBytes(64).toString("hex"),
-      //   uid: `30${rn(options)}${random.integer(10, 99)}${randomize("0", 3)}`,
-      //   password: hash,
+      // dhid: crypto.randomBytes(64).toString("hex"),
+      // uid: `30${rn(options)}${random.integer(10, 99)}${randomize("0", 3)}`,
+      // password: hash,
       // });
 
       const data = await user.save();
