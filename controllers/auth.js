@@ -24,7 +24,7 @@ Emailer.UseZohoSMTPTransport(credentials);
 const register = async (req, res, next) => {
   const check = await Users.findOne({
     email: req.body.email,
-    password: "Ardilla",
+    platform: "Ardilla",
   });
   try {
     if (check) {
