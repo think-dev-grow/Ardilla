@@ -39,17 +39,22 @@ const register = async (req, res, next) => {
 
       const data = await user.save();
 
+      // <p> Please use the OTP code below to complete your accout setting</p>
+      // <h2>${data.emailToken}</h2>
+      // <a href="https://ardilla-web.netlify.app/complete-profile">
+      // https://ardilla/complete-profile/${crypto
+      //   .randomBytes(64)
+      //   .toString("hex")}/com
+      // </a>
+
       const mailOptions = {
         from: "developer@leapsail.com.ng",
         to: data.email,
         subject: "Email verification",
-        body: `<p> Please use the OTP code below to complete your accout setting</p>
-      <h2>${data.emailToken}</h2>
-      <a href="https://ardilla-web.netlify.app/complete-profile">
-      https://ardilla/complete-profile/${crypto
-        .randomBytes(64)
-        .toString("hex")}/com
-      </a>
+        body: `
+        <h6 style="color: #041D05; font-size: 18px; font-weight: 500; line-height: 26px; font-family: 'Ubuntu'; margin-top: 20px;">Please use the OTP code below to complete your account setup:</h6>
+      <p style="color: #041D05; font-size: 58px; font-weight: 700; line-height: 76px; font-family: 'Ubuntu'; margin-top: 20px;">2140371</p>
+      <h5 style="color: #041D05; font-size: 17px; font-weight: 400; line-height: 26px; font-family: 'Ubuntu'; margin-top: 20px;">Or click the below link to verify your email address.</h5>
      `,
         bodyType: "html",
       };
