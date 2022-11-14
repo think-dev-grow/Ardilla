@@ -28,37 +28,39 @@ const register = async (req, res, next) => {
       password: "Ardilla",
     });
 
-    if (check) return next(handleError(400, "User alreasy exist"));
+    res.send(check);
 
-    let value = randomize("0", 7);
-    const user = new Users({ ...req.body, emailToken: value });
+    // if (check) return next(handleError(400, "User alreasy exist"));
 
-    const data = await user.save();
+    // let value = randomize("0", 7);
+    // const user = new Users({ ...req.body, emailToken: value });
 
-    var mailOptions = {
-      from: "developer@leapsail.com.ng",
-      to: data.email,
-      subject: "Email verification",
-      body: `<p> Please use the OTP code below to complete your accout setting</p>
-      <h2>${data.emailToken}</h2>
-      <a href="https://ardilla-web.netlify.app/otp/${data._id}">
-      ${crypto.randomBytes(64).toString("hex")}
-      </a>
-     `,
-      bodyType: "html",
-    };
+    // const data = await user.save();
 
-    var result = new Emailer.Email(mailOptions);
+    // var mailOptions = {
+    //   from: "developer@leapsail.com.ng",
+    //   to: data.email,
+    //   subject: "Email verification",
+    //   body: `<p> Please use the OTP code below to complete your accout setting</p>
+    //   <h2>${data.emailToken}</h2>
+    //   <a href="https://ardilla-web.netlify.app/otp/${data._id}">
+    //   ${crypto.randomBytes(64).toString("hex")}
+    //   </a>
+    //  `,
+    //   bodyType: "html",
+    // };
 
-    result.send(function (info) {
-      console.log(" response : ", info);
-    });
+    // var result = new Emailer.Email(mailOptions);
 
-    res.status(200).json({
-      success: true,
-      msg: "check your mail for your verification code",
-      data,
-    });
+    // result.send(function (info) {
+    //   console.log(" response : ", info);
+    // });
+
+    // res.status(200).json({
+    //   success: true,
+    //   msg: "check your mail for your verification code",
+    //   data,
+    // });
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));
