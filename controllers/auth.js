@@ -30,6 +30,8 @@ const register = async (req, res, next) => {
 
     if (check) return next(handleError(400, "User alreasy exist"));
 
+    res.send("carry on with reg");
+
     // let value = randomize("0", 7);
     // const user = new Users({ ...req.body, emailToken: value });
 
