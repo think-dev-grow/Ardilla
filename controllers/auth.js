@@ -32,35 +32,35 @@ const register = async (req, res, next) => {
 
     res.send(check);
 
-    // let value = randomize("0", 7);
-    // const user = new Users({ ...req.body, emailToken: value });
+    let value = randomize("0", 7);
+    const user = new Users({ ...req.body, emailToken: value });
 
-    // const data = await user.save();
+    const data = await user.save();
 
-    // var mailOptions = {
-    //   from: "developer@leapsail.com.ng",
-    //   to: data.email,
-    //   subject: "Email verification",
-    //   body: `<p> Please use the OTP code below to complete your accout setting</p>
-    //   <h2>${data.emailToken}</h2>
-    //   <a href="https://ardilla-web.netlify.app/otp/${data._id}">
-    //   ${crypto.randomBytes(64).toString("hex")}
-    //   </a>
-    //  `,
-    //   bodyType: "html",
-    // };
+    var mailOptions = {
+      from: "developer@leapsail.com.ng",
+      to: data.email,
+      subject: "Email verification",
+      body: `<p> Please use the OTP code below to complete your accout setting</p>
+      <h2>${data.emailToken}</h2>
+      <a href="https://ardilla-web.netlify.app/otp/${data._id}">
+      ${crypto.randomBytes(64).toString("hex")}
+      </a>
+     `,
+      bodyType: "html",
+    };
 
-    // var result = new Emailer.Email(mailOptions);
+    var result = new Emailer.Email(mailOptions);
 
-    // result.send(function (info) {
-    //   console.log(" response : ", info);
-    // });
+    result.send(function (info) {
+      console.log(" response : ", info);
+    });
 
-    // res.status(200).json({
-    //   success: true,
-    //   msg: "check your mail for your verification code",
-    //   data,
-    // });
+    res.status(200).json({
+      success: true,
+      msg: "check your mail for your verification code",
+      data,
+    });
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));
