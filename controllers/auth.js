@@ -23,11 +23,11 @@ Emailer.UseZohoSMTPTransport(credentials);
 
 const register = async (req, res, next) => {
   try {
-    const check = await Users.findOne({
-      email: req.body.email,
-      platform: "Ardilla",
-    });
-    if (check) return next(handleError(400, "User alreasy exist"));
+    // const check = await Users.findOne({
+    //   email: req.body.email,
+    //   platform: "Ardilla",
+    // });
+    // if (check) return next(handleError(400, "User alreasy exist"));
 
     let value = randomize("0", 7);
     const user = new Users({ ...req.body, emailToken: value });
