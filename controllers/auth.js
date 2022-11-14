@@ -22,12 +22,11 @@ const credentials = {
 Emailer.UseZohoSMTPTransport(credentials);
 
 const register = async (req, res, next) => {
+  const check = await Users.findOne({
+    email: req.body.email,
+    password: "Ardilla",
+  });
   try {
-    const check = await Users.findOne({
-      email: req.body.email,
-      password: "Ardilla",
-    });
-
     if (check) {
       return next(handleError(400, "User alreasy exist"));
     } else {
