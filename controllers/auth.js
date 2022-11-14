@@ -6,6 +6,10 @@ const rn = require("random-number");
 const Emailer = require("zoho-node-mailer");
 const crypto = require("crypto");
 
+const jwt = require("jsonwebtoken");
+
+const jwtSecret = "123456789";
+
 const random = new Random();
 
 const options = {
@@ -30,10 +34,19 @@ const register = async (req, res, next) => {
     if (check) {
       return next(handleError(400, "User alreasy exist"));
     } else {
+      jw;
       let value = randomize("0", 7);
       const user = new Users({ ...req.body, emailToken: value });
 
       const data = await user.save();
+
+      const payload = {
+        id: data._id,
+        email: data.email,
+        token: value,
+      };
+
+      console.log(value);
 
       const mailOptions = {
         from: "developer@leapsail.com.ng",
@@ -59,7 +72,7 @@ const register = async (req, res, next) => {
       res.status(200).json({
         success: true,
         msg: "check your mail for your verification code",
-        data,
+        payload,
       });
     }
   } catch (error) {
