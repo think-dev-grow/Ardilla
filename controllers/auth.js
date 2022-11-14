@@ -15,8 +15,8 @@ const options = {
 };
 
 const credentials = {
-  username: "developer@leapsail.com.ng",
-  password: "Developer@123",
+  username: "noreply@leapsail.com.ng",
+  password: "Noreply@2580",
 };
 
 Emailer.UseZohoSMTPTransport(credentials);
@@ -36,7 +36,7 @@ const register = async (req, res, next) => {
       const data = await user.save();
 
       const mailOptions = {
-        from: "developer@leapsail.com.ng",
+        from: "noreply@leapsail.com.ng",
         to: data.email,
         subject: "Email verification",
         body: `<p> Please use the OTP code below to complete your accout setting</p>
