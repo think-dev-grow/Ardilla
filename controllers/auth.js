@@ -23,11 +23,11 @@ Emailer.UseZohoSMTPTransport(credentials);
 
 const register = async (req, res, next) => {
   try {
-    // const check = await Users.findOne({
-    //   email: req.body.email,
-    //   platform: "Ardilla",
-    // });
-    // if (check) return next(handleError(400, "User alreasy exist"));
+    const check = await Users.findOne({
+      email: req.body.email,
+    });
+    if (check.platform === "Ardilla")
+      return next(handleError(400, "User alreasy exist"));
 
     let value = randomize("0", 7);
     const user = new Users({ ...req.body, emailToken: value });
@@ -51,15 +51,13 @@ const register = async (req, res, next) => {
 
     result.send(function (info) {
       console.log(" response : ", info);
-
-      res.send(info);
     });
 
-    // res.status(200).json({
-    //   success: true,
-    //   msg: "check your mail for your verification code",
-    //   data,
-    // });
+    res.status(200).json({
+      success: true,
+      msg: "check your mail for your verification code",
+      data,
+    });
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));
