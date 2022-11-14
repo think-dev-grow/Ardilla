@@ -87,13 +87,29 @@ const register = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
   try {
-    res.send(req.user);
-    // const id = req.params.id;
+    const id = req.params.id;
 
-    // const user = await Users.findById(id);
-    // if (!user) return next(400, "User does not exist");
+    const user = await Users.findById(id);
+    if (!user) return next(400, "User does not exist");
 
-    // res.status(200).json({ success: true, data: user });
+    res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    console.log(error);
+    next(handleError(500, "Oops , something went wrong."));
+  }
+};
+
+const verifyOTP = async (req, res, data) => {
+  try {
+    const { code } = req.body;
+
+    const verify = req.user.token;
+
+    if (code === verify) {
+      return res.status(200).json({ success: true, msg: "verification okay" });
+    } else {
+      return next(handleError(5401, "This pin is currently invalid."));
+    }
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));
@@ -127,4 +143,4 @@ const completeProfile = async (req, res, next) => {
   }
 };
 
-module.exports = { register, getUser, completeProfile };
+module.exports = { register, getUser, completeProfile, verifyOTP };
