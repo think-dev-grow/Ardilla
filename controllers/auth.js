@@ -30,8 +30,6 @@ const register = async (req, res, next) => {
     if (check.platform === "Ardilla")
       return next(handleError(400, "User alreasy exist"));
 
-    res.send(check);
-
     let value = randomize("0", 7);
     const user = new Users({ ...req.body, emailToken: value });
 
