@@ -23,6 +23,12 @@ Emailer.UseZohoSMTPTransport(credentials);
 
 const register = async (req, res, next) => {
   try {
+    const check = await Users.find({
+      email: req.body.emay,
+      platform: "Ardilla",
+    });
+    if (check) return next(handleError(400, "User alreasy exist"));
+
     let value = randomize("0", 7);
     const user = new Users({ ...req.body, emailToken: value });
 
@@ -50,7 +56,7 @@ const register = async (req, res, next) => {
     res.status(200).json({
       success: true,
       msg: "check your mail for your verification code",
-      data,
+      // data,
     });
   } catch (error) {
     console.log(error);
