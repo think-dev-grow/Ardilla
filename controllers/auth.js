@@ -49,15 +49,17 @@ const register = async (req, res, next) => {
 
     var result = new Emailer.Email(mailOptions);
 
-    result.send(function (res) {
-      console.log(" response : ", res);
+    result.send(function (info) {
+      console.log(" response : ", info);
+
+      res.send(info);
     });
 
-    res.status(200).json({
-      success: true,
-      msg: "check your mail for your verification code",
-      // data,
-    });
+    // res.status(200).json({
+    //   success: true,
+    //   msg: "check your mail for your verification code",
+    //   data,
+    // });
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));
