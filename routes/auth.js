@@ -6,6 +6,6 @@ router.post("/register", register);
 
 router.get("/user/:id", getUser);
 
-router.post("/complete-profile", completeProfile);
+router.post("/complete-profile/:id", completeProfile);
 
 module.exports = router;

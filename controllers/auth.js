@@ -82,10 +82,7 @@ const getUser = async (req, res, next) => {
 
 const completeProfile = async (req, res, next) => {
   try {
-    const check = await Users.findOne({
-      email: req.body.email,
-      platform: "Ardilla",
-    });
+    const check = await Users.findById(req.params.id);
 
     if (!check) {
       return next(handleError(404, "User does not exist."));
