@@ -28,9 +28,7 @@ const register = async (req, res, next) => {
       password: "Ardilla",
     });
 
-    res.send(check);
-
-    // if (check) return next(handleError(400, "User alreasy exist"));
+    if (check) return next(handleError(400, "User alreasy exist"));
 
     // let value = randomize("0", 7);
     // const user = new Users({ ...req.body, emailToken: value });
