@@ -39,14 +39,6 @@ const register = async (req, res, next) => {
 
       const data = await user.save();
 
-      const payload = {
-        id: data._id,
-        email: data.email,
-        token: value,
-      };
-
-      console.log(value);
-
       const mailOptions = {
         from: "developer@leapsail.com.ng",
         to: data.email,
@@ -68,11 +60,24 @@ const register = async (req, res, next) => {
         console.log(" response : ", info);
       });
 
-      res.status(200).json({
-        success: true,
-        msg: "check your mail for your verification code",
-        payload,
-      });
+      const payload = {
+        id: data._id,
+        email: data.email,
+        token: value,
+      };
+
+      const token = jwt.sign(payload, jwtSecret, { expiresIn: "45m" });
+
+      res
+        .cookie("access_token", token, {
+          httpOnly: true,
+        })
+        .status(200)
+        .json({
+          success: true,
+          msg: "check your mail for your verification code",
+          data,
+        });
     }
   } catch (error) {
     console.log(error);
@@ -82,12 +87,13 @@ const register = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
   try {
-    const id = req.params.id;
+    res.send(req.user);
+    // const id = req.params.id;
 
-    const user = await Users.findById(id);
-    if (!user) return next(400, "User does not exist");
+    // const user = await Users.findById(id);
+    // if (!user) return next(400, "User does not exist");
 
-    res.status(200).json({ success: true, data: user });
+    // res.status(200).json({ success: true, data: user });
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));

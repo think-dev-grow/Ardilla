@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
 const mongoose = require("mongoose");
 
 const dotenv = require("dotenv");
