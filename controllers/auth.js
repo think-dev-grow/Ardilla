@@ -41,8 +41,10 @@ const register = async (req, res, next) => {
         subject: "Email verification",
         body: `<p> Please use the OTP code below to complete your accout setting</p>
       <h2>${data.emailToken}</h2>
-      <a href="https://ardilla-web.netlify.app/otp/${data._id}">
-      ${crypto.randomBytes(64).toString("hex")}
+      <a href="https://ardilla-web.netlify.app/complete-profile">
+      https://ardilla/complete-profile/${crypto
+        .randomBytes(64)
+        .toString("hex")}/com
       </a>
      `,
         bodyType: "html",
