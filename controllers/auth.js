@@ -107,8 +107,6 @@ const verifyOTP = async (req, res, data) => {
 
     if (code === verify) {
       res.status(200).json({ success: true, msg: "verification okay" });
-    } else {
-      return next(handleError(5401, "This pin is currently invalid."));
     }
   } catch (error) {
     console.log(error);
