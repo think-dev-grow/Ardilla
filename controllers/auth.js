@@ -29,7 +29,7 @@ const register = async (req, res, next) => {
     const data = await user.save();
 
     var mailOptions = {
-      from: "developer@leapsail.com.ng",
+      from: "noreply@leapsail.com.ng",
       to: data.email,
       subject: "Email verification",
       body: `<p> Please use the OTP code below to complete your accout setting</p>
