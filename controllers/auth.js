@@ -106,7 +106,9 @@ const verifyOTP = async (req, res, data) => {
     const verify = req.user.token;
 
     if (code === verify) {
-      res.status(200).json({ success: true, msg: "verification okay" });
+      res
+        .status(200)
+        .json({ success: true, msg: "verification okay", data: req.user });
     }
   } catch (error) {
     console.log(error);
