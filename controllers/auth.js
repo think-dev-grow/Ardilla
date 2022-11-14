@@ -24,7 +24,7 @@ Emailer.UseZohoSMTPTransport(credentials);
 const register = async (req, res, next) => {
   try {
     const check = await Users.find({
-      email: req.body.emay,
+      email: req.body.email,
       platform: "Ardilla",
     });
     if (check) return next(handleError(400, "User alreasy exist"));
