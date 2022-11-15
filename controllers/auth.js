@@ -69,7 +69,7 @@ const register = async (req, res, next) => {
         token: value,
       };
 
-      const token = jwt.sign(payload, jwtSecret, { expiresIn: "30m" });
+      const token = jwt.sign(payload, jwtSecret, { expiresIn: "1m" });
 
       res
         .cookie("access_token", token, {
@@ -113,7 +113,7 @@ const verifyOTP = async (req, res, data) => {
         .status(200)
         .json({ success: true, msg: "verification okay", data: req.user });
     } else {
-      return res.status(400).json({ success: true, msg: "Incorrect token" });
+      return res.status(400).json({ success: false, msg: "Incorrect token" });
     }
   } catch (error) {
     console.log(error);
