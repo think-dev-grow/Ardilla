@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
   {
+    kodeHex: { type: String, default: "" },
     firstname: { type: String, default: "" },
     lastname: { type: String, default: "" },
     uid: { type: String, default: "" },

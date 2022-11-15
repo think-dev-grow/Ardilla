@@ -201,6 +201,7 @@ const completeProfile = async (req, res, next) => {
     if (!check) {
       return next(handleError(404, "User does not exist."));
     } else {
+      check.kodeHex = req.body.kodeHex;
       check.firstname = req.body.firstname;
       check.lastname = req.body.lastname;
       check.uid = `30${rn(options)}${random.integer(10, 99)}${randomize(
