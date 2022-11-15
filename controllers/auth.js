@@ -121,6 +121,76 @@ const verifyOTP = async (req, res, data) => {
   }
 };
 
+const resendOTP = async (req, res, data) => {
+  try {
+    let value = randomize("0", 7);
+
+    const user = await Users.findOneAndUpdate(
+      { _id: req.params.id },
+      { emailToken: value },
+      { new: true }
+    );
+
+    const mailOptions = {
+      from: "developer@leapsail.com.ng",
+      to: user.email,
+      subject: "Email verification",
+      body: `
+      
+    <p> Please use the OTP code below to complete your accout setting</p>
+    <h2>${user.emailToken}</h2>
+    <a href="https://ardilla-web.netlify.app/complete-profile">
+    https://ardilla/complete-profile/${crypto
+      .randomBytes(64)
+      .toString("hex")}/com
+    </a>
+     
+   `,
+      bodyType: "html",
+    };
+
+    const result = new Emailer.Email(mailOptions);
+
+    result.send(function (info) {
+      console.log(" response : ", info);
+    });
+
+    const payload = {
+      id: user._id,
+      email: user.email,
+      token: value,
+    };
+
+    const token = jwt.sign(payload, jwtSecret, { expiresIn: "8m" });
+
+    res
+      .cookie("access_token", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json({
+        success: true,
+        msg: "check your mail for your verification code",
+        user,
+      });
+
+    const { code } = req.body;
+
+    const verify = req.user.token;
+
+    if (code === verify) {
+      return res
+        .status(200)
+        .json({ success: true, msg: "verification okay", data: req.user });
+    } else {
+      return res.status(400).json({ success: false, msg: "Incorrect token" });
+    }
+  } catch (error) {
+    console.log(error);
+    next(handleError(500, "Oops , something went wrong."));
+  }
+};
+
 const completeProfile = async (req, res, next) => {
   try {
     const check = await Users.findById(req.params.id);
@@ -148,4 +218,4 @@ const completeProfile = async (req, res, next) => {
   }
 };
 
-module.exports = { register, getUser, completeProfile, verifyOTP };
+module.exports = { register, getUser, completeProfile, verifyOTP, resendOTP };
