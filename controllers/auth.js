@@ -39,6 +39,14 @@ const register = async (req, res, next) => {
 
       const data = await user.save();
 
+      const payload = {
+        id: data._id,
+        email: data.email,
+        token: value,
+      };
+
+      const token = jwt.sign(payload, jwtSecret, { expiresIn: "8m" });
+
       const mailOptions = {
         from: "developer@leapsail.com.ng",
         to: data.email,
@@ -62,14 +70,6 @@ const register = async (req, res, next) => {
       result.send(function (info) {
         console.log(" response : ", info);
       });
-
-      const payload = {
-        id: data._id,
-        email: data.email,
-        token: value,
-      };
-
-      const token = jwt.sign(payload, jwtSecret, { expiresIn: "8m" });
 
       res
         .cookie("access_token", token, {
