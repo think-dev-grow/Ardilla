@@ -69,7 +69,7 @@ const register = async (req, res, next) => {
         token: value,
       };
 
-      const token = jwt.sign(payload, jwtSecret, { expiresIn: "1m" });
+      const token = jwt.sign(payload, jwtSecret, { expiresIn: "8m" });
 
       res
         .cookie("access_token", token, {
