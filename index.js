@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
 const cors = require("cors");
 var whitelist = ["https://ardilla-web.netlify.app/", "http://example2.com"];
 var corsOptions = {
@@ -13,9 +16,6 @@ var corsOptions = {
   },
 };
 app.use(cors(corsOptions));
-
-const cookieParser = require("cookie-parser");
-app.use(cookieParser());
 
 const mongoose = require("mongoose");
 
