@@ -170,7 +170,7 @@ const resendOTP = async (req, res, data) => {
       .status(200)
       .json({
         success: true,
-        msg: "check your mail for your verification code",
+        msg: "verification code has be resend",
         user,
       });
 
