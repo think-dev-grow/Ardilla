@@ -119,7 +119,7 @@ const verifyOTP = async (req, res, data) => {
         return res.status(400).json({ success: false, msg: "Incorrect token" });
       }
     } else {
-      res.json({ id: req.params.id, sid: user._id });
+      res.json({ id: req.user.id, sid: user._id });
     }
   } catch (error) {
     console.log(error);
