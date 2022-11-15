@@ -17,6 +17,6 @@ router.post("/complete-profile/:id", completeProfile);
 
 router.post("/verify-otp", verifyToken, verifyOTP);
 
-router.put("/resend-otp", resendOTP);
+router.put("/resend-otp/:id", resendOTP);
 
 module.exports = router;
