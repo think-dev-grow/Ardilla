@@ -112,7 +112,7 @@ const verifyOTP = async (req, res, next) => {
     if (code === verify) {
       return res.status(200).json({ success: true, msg: "verification okay" });
     } else {
-      return res.status(400).json({ success: false, msg: "Incorrect token" });
+      return res.status(400).json({ success: false, msg: "Token has expired" });
     }
     // } else {
     //   return res.status(400).json({ success: false, msg: "Invalid user" });
