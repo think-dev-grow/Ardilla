@@ -20,8 +20,8 @@ const options = {
 };
 
 const credentials = {
-  username: "Rex.atuzie@leapsail.com.ng",
-  password: "rexatuzie",
+  username: "no-reply@leapsail.com.ng",
+  password: "Ardilla@2580",
 };
 
 Emailer.UseZohoSMTPTransport(credentials);
