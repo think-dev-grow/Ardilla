@@ -106,7 +106,7 @@ const verifyOTP = async (req, res, data) => {
   try {
     const user = await Users.findById(req.params.id);
 
-    if (req.user.id === user._id) {
+    if (user._id === req.user.id) {
       const { code } = req.body;
 
       const verify = req.user.token;
