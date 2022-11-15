@@ -72,10 +72,12 @@ const register = async (req, res, next) => {
       //   res.send(info);
       // });
 
+      const { _id } = data._doc;
+
       res.status(200).json({
         success: true,
         msg: "check your mail for your verification code",
-        data: { data, token },
+        data: { id: _id, token },
       });
       // res
       //   .cookie("access_token", token, {
