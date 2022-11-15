@@ -6,6 +6,35 @@ const rn = require("random-number");
 const Emailer = require("zoho-node-mailer");
 const crypto = require("crypto");
 
+var { SendMailClient } = require("zeptomail");
+
+const url = "api.zeptomail.com/";
+const zohoToken =
+  "Zoho-enczapikey wSsVR612/BT5D/1/yTSvc+Y/mFsBUg+gFB900AfyuHP4HfDK9sdul0TPDFWvT/BJEGRqQGdD9rp6y00H0TQHiokkmVEAWyiF9mqRe1U4J3x17qnvhDzJW2pclhOBJIsNxg1ik2JiEs0n+g==";
+
+let client = new SendMailClient({ url, zohoToken });
+
+client
+  .sendMail({
+    bounce_address: "NOREPLY@bounce.ardilla.africa",
+    from: {
+      address: "noreply@ardilla.africa",
+      name: "noreply",
+    },
+    to: [
+      {
+        email_address: {
+          address: "noreply@ardilla.africa",
+          name: "ARDILLA",
+        },
+      },
+    ],
+    subject: "Test Email",
+    htmlbody: "<div><b> Test email sent successfully.</b></div>",
+  })
+  .then((resp) => console.log("success"))
+  .catch((error) => console.log("error"));
+
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
