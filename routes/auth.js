@@ -15,7 +15,7 @@ router.get("/user/:id", getUser);
 
 router.post("/complete-profile/:id", completeProfile);
 
-router.post("/verify-otp", verifyToken, verifyOTP);
+router.post("/verify-otp/:id", verifyToken, verifyOTP);
 
 router.put("/resend-otp/:id", resendOTP);
 

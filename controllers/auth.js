@@ -105,16 +105,20 @@ const getUser = async (req, res, next) => {
 const verifyOTP = async (req, res, data) => {
   try {
     const user = await Users.findById(req.params.id);
-    const { code } = req.body;
+    if (req.user.id === user._id) {
+      const { code } = req.body;
 
-    const verify = req.user.token;
+      const verify = req.user.token;
 
-    if (code === verify) {
-      return res
-        .status(200)
-        .json({ success: true, msg: "verification okay", data: req.user });
+      if (code === verify) {
+        return res
+          .status(200)
+          .json({ success: true, msg: "verification okay", data: req.user });
+      } else {
+        return res.status(400).json({ success: false, msg: "Incorrect token" });
+      }
     } else {
-      return res.status(400).json({ success: false, msg: "Incorrect token" });
+      return res.status(400).json({ success: false, msg: "Incorrect user" });
     }
   } catch (error) {
     console.log(error);
