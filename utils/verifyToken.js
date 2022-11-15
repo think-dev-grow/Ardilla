@@ -15,7 +15,7 @@ const verifyToken = (req, res, next) => {
       next();
     });
   } else {
-    return next(handleError(401, "Unauthorized"));
+    return next(handleError(401, "Hey your token has expired"));
   }
 };
 
