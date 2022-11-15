@@ -24,7 +24,6 @@
     "nodemon": "^2.0.20",
     "random-js": "^2.1.0",
     "random-number": "^0.0.9",
-    "randomatic": "^3.1.1",
-    "zoho-node-mailer": "^1.0.6"
+    "randomatic": "^3.1.1"
   }
 }
