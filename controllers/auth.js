@@ -27,12 +27,12 @@ const options = {
   integer: true,
 };
 
-const credentials = {
-  username: "no-reply@leapsail.com.ng",
-  password: "Ardilla@2580",
-};
+// const credentials = {
+//   username: "no-reply@leapsail.com.ng",
+//   password: "Ardilla@2580",
+// };
 
-Emailer.UseZohoSMTPTransport(credentials);
+// Emailer.UseZohoSMTPTransport(credentials);
 
 const register = async (req, res, next) => {
   const check = await Users.findOne({
