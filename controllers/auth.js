@@ -170,6 +170,7 @@ const resendOTP = async (req, res, data) => {
 
     res
       .cookie("access_token", token, {
+        secure: false,
         httpOnly: true,
       })
       .status(200)
