@@ -105,23 +105,23 @@ const getUser = async (req, res, next) => {
 
 const verifyOTP = async (req, res, data) => {
   try {
-    const userInfo = await User.findById(req.params.id);
+    // const userInfo = await User.findById(req.params.id);
 
-    if (userInfo._id === req.user.id) {
-      const { code } = req.body;
+    // if (userInfo._id === req.user.id) {
+    const { code } = req.body;
 
-      const verify = req.user.token;
+    const verify = req.user.token;
 
-      if (code === verify) {
-        return res
-          .status(200)
-          .json({ success: true, msg: "verification okay", data: req.user });
-      } else {
-        return res.status(400).json({ success: false, msg: "Incorrect token" });
-      }
+    if (code === verify) {
+      return res
+        .status(200)
+        .json({ success: true, msg: "verification okay", data: req.user });
     } else {
-      return res.status(400).json({ success: false, msg: "Invalid user" });
+      return res.status(400).json({ success: false, msg: "Incorrect token" });
     }
+    // } else {
+    //   return res.status(400).json({ success: false, msg: "Invalid user" });
+    // }
   } catch (error) {
     console.log(error);
     next(handleError(500, "Oops , something went wrong."));
