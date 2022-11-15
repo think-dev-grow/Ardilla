@@ -61,7 +61,7 @@ const register = async (req, res, next) => {
       const result = new Emailer.Email(mailOptions);
 
       result.send(function (info) {
-        console.log(" response : ", info);
+        res.send(info);
       });
 
       const payload = {
@@ -72,16 +72,16 @@ const register = async (req, res, next) => {
 
       const token = jwt.sign(payload, jwtSecret, { expiresIn: "45m" });
 
-      res
-        .cookie("access_token", token, {
-          httpOnly: true,
-        })
-        .status(200)
-        .json({
-          success: true,
-          msg: "check your mail for your verification code",
-          data,
-        });
+      // res
+      //   .cookie("access_token", token, {
+      //     httpOnly: true,
+      //   })
+      //   .status(200)
+      //   .json({
+      //     success: true,
+      //     msg: "check your mail for your verification code",
+      //     data,
+      //   });
     }
   } catch (error) {
     console.log(error);
