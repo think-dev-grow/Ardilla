@@ -66,11 +66,11 @@ const register = async (req, res, next) => {
         bodyType: "html",
       };
 
-      const result = new Emailer.Email(mailOptions);
+      // const result = new Emailer.Email(mailOptions);
 
-      result.send(function (info) {
-        res.send(info);
-      });
+      // result.send(function (info) {
+      //   res.send(info);
+      // });
 
       res.status(200).json({
         success: true,
