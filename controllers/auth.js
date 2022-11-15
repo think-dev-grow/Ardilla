@@ -69,7 +69,7 @@ const register = async (req, res, next) => {
         token: value,
       };
 
-      const token = jwt.sign(payload, jwtSecret, { expiresIn: "8m" });
+      const token = jwt.sign(payload, jwtSecret, { expiresIn: "45m" });
 
       res
         .cookie("access_token", token, {
@@ -104,6 +104,7 @@ const getUser = async (req, res, next) => {
 
 const verifyOTP = async (req, res, data) => {
   try {
+    const user = await Users.findById(req.params.id);
     const { code } = req.body;
 
     const verify = req.user.token;
