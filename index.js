@@ -5,16 +5,6 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 const cors = require("cors");
-var whitelist = ["https://ardilla-web.netlify.app/", "http://example2.com"];
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
 app.use(cors(corsOptions));
 
 const mongoose = require("mongoose");
