@@ -74,16 +74,22 @@ const register = async (req, res, next) => {
           subject: "Test Email",
           htmlbody: "<div><b> Test email sent successfully.</b></div>",
         })
-        .then((resp) => console.log("success"))
-        .catch((error) => console.log("error"));
+        .then((resp) => {
+          console.log("success");
+          res.send(resp);
+        })
+        .catch((error) => {
+          console.log("error");
+          res.send(error);
+        });
 
       const { _id } = data._doc;
 
-      res.status(200).json({
-        success: true,
-        msg: "check your mail for your verification code",
-        data: { id: _id, token },
-      });
+      // res.status(200).json({
+      //   success: true,
+      //   msg: "check your mail for your verification code",
+      //   data: { id: _id, token },
+      // });
     }
   } catch (error) {
     console.log(error);
