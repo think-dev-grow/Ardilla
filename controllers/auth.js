@@ -41,7 +41,7 @@ const register = async (req, res, next) => {
       const data = await user.save();
 
       const mailOptions = {
-        from: "developer@leapsail.com.ng",
+        from: "no-reply@leapsail.com.ng",
         to: data.email,
         subject: "Email verification",
         body: `
