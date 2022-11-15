@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("/register", register);
 
-router.get("/user/:id", verifyToken, getUser);
+router.get("/user/:id", getUser);
 
 router.post("/complete-profile/:id", completeProfile);
 
