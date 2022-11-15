@@ -40,6 +40,14 @@ const register = async (req, res, next) => {
 
       const data = await user.save();
 
+      const payload = {
+        id: data._id,
+        email: data.email,
+        token: value,
+      };
+
+      const token = jwt.sign(payload, jwtSecret, { expiresIn: "45m" });
+
       const mailOptions = {
         from: "no-reply@leapsail.com.ng",
         to: data.email,
@@ -64,24 +72,21 @@ const register = async (req, res, next) => {
         res.send(info);
       });
 
-      const payload = {
-        id: data._id,
-        email: data.email,
-        token: value,
-      };
-
-      const token = jwt.sign(payload, jwtSecret, { expiresIn: "45m" });
-
-      res
-        .cookie("access_token", token, {
-          httpOnly: true,
-        })
-        .status(200)
-        .json({
-          success: true,
-          msg: "check your mail for your verification code",
-          data,
-        });
+      res.status(200).json({
+        success: true,
+        msg: "check your mail for your verification code",
+        data: { data, token },
+      });
+      // res
+      //   .cookie("access_token", token, {
+      //     httpOnly: true,
+      //   })
+      //   .status(200)
+      // .json({
+      //   success: true,
+      //   msg: "check your mail for your verification code",
+      //   data,
+      // });
     }
   } catch (error) {
     console.log(error);
