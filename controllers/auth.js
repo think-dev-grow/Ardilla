@@ -108,7 +108,7 @@ const verifyOTP = async (req, res, next) => {
     // const userInfo = await User.findById(req.params.id);
 
     // if (userInfo._id === req.user.id) {
-    const { code } = req.body;
+    const code = req.body.code;
 
     const verify = req.user.token;
 
@@ -170,7 +170,7 @@ const resendOTP = async (req, res, data) => {
 
     res
       .cookie("access_token", token, {
-        secure: false,
+        // secure: false,
         httpOnly: true,
       })
       .status(200)
