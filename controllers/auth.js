@@ -7,6 +7,7 @@ const Emailer = require("zoho-node-mailer");
 const crypto = require("crypto");
 
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
 const jwtSecret = "123456789";
 
@@ -104,16 +105,22 @@ const getUser = async (req, res, next) => {
 
 const verifyOTP = async (req, res, data) => {
   try {
-    const { code } = req.body;
+    const userInfo = await User.findById(req.params.id);
 
-    const verify = req.user.token;
+    if (userInfo._id === req.user.id) {
+      const { code } = req.body;
 
-    if (code === verify) {
-      return res
-        .status(200)
-        .json({ success: true, msg: "verification okay", data: req.user });
+      const verify = req.user.token;
+
+      if (code === verify) {
+        return res
+          .status(200)
+          .json({ success: true, msg: "verification okay", data: req.user });
+      } else {
+        return res.status(400).json({ success: false, msg: "Incorrect token" });
+      }
     } else {
-      return res.status(400).json({ success: false, msg: "Incorrect token" });
+      return res.status(400).json({ success: false, msg: "Invalid user" });
     }
   } catch (error) {
     console.log(error);
