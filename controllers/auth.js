@@ -14,27 +14,6 @@ const zohoToken =
 
 let client = new SendMailClient({ url, zohoToken });
 
-client
-  .sendMail({
-    bounce_address: "NOREPLY@bounce.ardilla.africa",
-    from: {
-      address: "noreply@ardilla.africa",
-      name: "noreply",
-    },
-    to: [
-      {
-        email_address: {
-          address: "noreply@ardilla.africa",
-          name: "ARDILLA",
-        },
-      },
-    ],
-    subject: "Test Email",
-    htmlbody: "<div><b> Test email sent successfully.</b></div>",
-  })
-  .then((resp) => console.log("success"))
-  .catch((error) => console.log("error"));
-
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
@@ -77,29 +56,26 @@ const register = async (req, res, next) => {
 
       const token = jwt.sign(payload, jwtSecret, { expiresIn: "3m" });
 
-      const mailOptions = {
-        from: "no-reply@leapsail.com.ng",
-        to: data.email,
-        subject: "Email verification",
-        body: `
-        
-      <p> Please use the OTP code below to complete your accout setting</p>
-      <h2>${data.emailToken}</h2>
-      <a href="https://ardilla-web.netlify.app/complete-profile">
-      https://ardilla/complete-profile/${crypto
-        .randomBytes(64)
-        .toString("hex")}/com
-      </a>
-       
-     `,
-        bodyType: "html",
-      };
-
-      const result = new Emailer.Email(mailOptions);
-
-      result.send(function (info) {
-        res.send(info);
-      });
+      client
+        .sendMail({
+          bounce_address: "NOREPLY@bounce.ardilla.africa",
+          from: {
+            address: "noreply@ardilla.africa",
+            name: "noreply",
+          },
+          to: [
+            {
+              email_address: {
+                address: `${data.email}`,
+                name: `${data.firstname}`,
+              },
+            },
+          ],
+          subject: "Test Email",
+          htmlbody: "<div><b> Test email sent successfully.</b></div>",
+        })
+        .then((resp) => console.log("success"))
+        .catch((error) => console.log("error"));
 
       const { _id } = data._doc;
 
