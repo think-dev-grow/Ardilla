@@ -25,6 +25,7 @@
     "random-js": "^2.1.0",
     "random-number": "^0.0.9",
     "randomatic": "^3.1.1",
+    "zeptomail": "^3.0.3",
     "zoho-node-mailer": "^1.0.6"
   }
 }
